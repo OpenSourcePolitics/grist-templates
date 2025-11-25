@@ -1,6 +1,6 @@
-# Modèle Gestion du patrimoine
+# Modèle Gestion du patrimoine popur Grist
 
-Ce modèle permet de recenser les propriétés immobilières d'une structure (commune, interco, etc.), la nature et l'historique de leur occupation, et les interventions qui les concernent.
+Ce modèle Grist permet de recenser les propriétés immobilières d'une structure (commune, interco, etc.), la nature et l'historique de leur occupation, et les interventions qui les concernent.
 
 Pour l'utiliser, téléchargez le fichier `Gestion du patrimoine.grist`, puis dans votre instance Grist, ouvrez le dossier de votre choix, cliquez sur **Nouveau** > **Importer un document**, et sélectionnez le fichier précédemment téléchargé.
 
