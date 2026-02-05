@@ -1,0 +1,354 @@
+{
+  "name": "Tickets d'assistance Grist",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Nouvelle demande envoyée\nQuand une ligne est ajoutée, le/la référent·e de la structure en question est notifié·e par email",
+        "height": 176,
+        "width": 320
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        0,
+        16
+      ],
+      "id": "52f34ccf-75fc-450d-8c6f-427a45a4a5f6",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "## Demande existante modifiée\nCe flux est lancé manuellement lorsque un·e référent·e clique sur \"Notifier\" dans le document Grist.\nÀ la fin de ce flux, on notifie Grist en modifiant une colonne",
+        "height": 192,
+        "width": 320
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        0,
+        288
+      ],
+      "id": "621d4302-63be-4353-a478-5473ce58f320",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "272592ff-a929-4dda-a4f6-d2ad79247111",
+              "name": "Description",
+              "value": "={{ $json.body[0].Description }}",
+              "type": "string"
+            },
+            {
+              "id": "f8e0da06-0dac-405e-a7a0-2f35bdd3dfb2",
+              "name": "Demande",
+              "value": "={{ $json.body[0].Demande }}",
+              "type": "string"
+            },
+            {
+              "id": "f299032e-e4ec-4850-aa7d-b47ad41200a3",
+              "name": "Commentaire_ref",
+              "value": "={{ $json.body[0].Commentaire_referent_e }}",
+              "type": "string"
+            },
+            {
+              "id": "305b869b-c28a-4dca-ad3b-d965340f01b8",
+              "name": "Email_référent·e",
+              "value": "={{ $json.body[0].Email_referent_e }}",
+              "type": "string"
+            },
+            {
+              "id": "620329dd-ce19-4151-9e14-f2c3b03c1c68",
+              "name": "structure_txt",
+              "value": "={{ $json.body[0].structure_txt }}",
+              "type": "string"
+            },
+            {
+              "id": "6fa73460-49dc-49b3-93c0-48de91921d8a",
+              "name": "mails_membres",
+              "value": "={{ $json.body[0].mails_membres.slice(1) }}",
+              "type": "array"
+            },
+            {
+              "id": "7c081048-9599-4d59-963b-4694048725c4",
+              "name": "Statut",
+              "value": "={{ $json.body[0].Statut }}",
+              "type": "string"
+            },
+            {
+              "id": "10b1385c-efcc-467f-8235-f71f9eca6f32",
+              "name": "Commentaire_ref",
+              "value": "={{ $json.body[0].Commentaire_referent_e }}",
+              "type": "string"
+            },
+            {
+              "id": "7ee46245-f24f-4062-a002-0716aac4ac86",
+              "name": "anchor",
+              "value": "={{ $json.body[0].anchor }}",
+              "type": "string"
+            },
+            {
+              "id": "6c8d9071-748d-4802-b262-da2b0def9593",
+              "name": "grist_row_id",
+              "value": "={{ $json.body[0].id }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        624,
+        352
+      ],
+      "id": "1691f417-17e9-413f-b357-32cd2ecf46bd",
+      "name": "Edit Fields1"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "mails_membres",
+        "include": "allOtherFields",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        848,
+        352
+      ],
+      "id": "12d9a359-6bba-412a-a91b-a2cca91c553a",
+      "name": "Split Out"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "coller-l-id-du-doc-ici",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        400,
+        32
+      ],
+      "id": "8ac82819-e42d-465c-b20d-7bd354223a0e",
+      "name": "Webhook 1 - Nouvelle demande envoyée",
+      "webhookId": "8ab0f3c9-e48f-4f8b-8c0a-6599bf9c52f3"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "coller-l-id-du-doc-ici",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        400,
+        352
+      ],
+      "id": "10d9adb3-2b6e-4df2-a1af-aec64de855d9",
+      "name": "Webhook 2 - Demande existante modifiée",
+      "webhookId": "9c98f374-eb69-4540-a052-6d648c646312"
+    },
+    {
+      "parameters": {
+        "fromEmail": "=notification@votre-organisation.gouv",
+        "toEmail": "={{ $json.body[0].Email_referent_e }}",
+        "subject": "=[Ticketing] Suivi client {{ $json.body[0].structure_txt }}",
+        "text": "={{ $json.body[0].Description }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.mailjet",
+      "typeVersion": 1,
+      "position": [
+        848,
+        32
+      ],
+      "id": "6060933f-2c78-4a97-98ca-30f5506c2666",
+      "name": "Envoyer un email au référent",
+      "credentials": {
+        "mailjetEmailApi": {
+          "id": "E5kGCznsV8hNVaGX",
+          "name": "Votre compte Mailjet (à remplacer)"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "const data = $input.item.json\n\nvar statut = \"\";\nif (data.Statut) {\n  statut = `Statut: ${data.Statut}`;\n}\nvar comment = \"\";\nif (data.Commentaire_ref) {\n  comment = `Commentaire:\\n${data.Commentaire_ref}`\n}\n\nconst body = `\nBonjour.\n\nCeci est un mail de notification automatique.  Votre demande envoyée à Mon Organisation a évolué !\n\n${statut}\n${comment}\n\nPour plus d'informations sur les opérations en cours, consutlez ce lien:\n\n${data.anchor}\n`\n\nreturn {\n  body: body,\n  ...data\n}"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1072,
+        352
+      ],
+      "id": "8a8121a7-076f-4e76-a14f-a33df38962ba",
+      "name": "Remplissage de l'email"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nif (!$input.first().json.body[0].Email_referent_e ){\n  throw new Error(\"No email\")\n}\nreturn $input.all()"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        624,
+        32
+      ],
+      "id": "d20c8fd4-4e37-4ab2-9980-d0d1e16bcf24",
+      "name": "Vérifier que l'email existe"
+    },
+    {
+      "parameters": {
+        "fromEmail": "=notification@votrestructure.gouv",
+        "toEmail": "={{ $json.mails_membres }}",
+        "subject": "=[Ticket Decidim {{ $json.structure_txt }}] {{ $json.Demande }}",
+        "text": "={{ $json.Description }}",
+        "html": "={{$json.body}}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.mailjet",
+      "typeVersion": 1,
+      "position": [
+        1296,
+        448
+      ],
+      "id": "8cd70bbd-a038-43c7-a25a-481f313300c1",
+      "name": "Envoyer un email au membre",
+      "credentials": {
+        "mailjetEmailApi": {
+          "id": "E5kGCznsV8hNVaGX",
+          "name": "Votre compte Mailjet (à remplacer)"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "docId": "coller-l-id-du-doc-ici",
+        "tableId": "Tickets",
+        "rowId": "={{ $('Edit Fields1').item.json.grist_row_id }}",
+        "fieldsToSend": {
+          "properties": [
+            {
+              "fieldId": "notification_ok",
+              "fieldValue": "={{ true }}"
+            },
+            {
+              "fieldId": "pending_change",
+              "fieldValue": "={{false}}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.grist",
+      "typeVersion": 1,
+      "position": [
+        1296,
+        256
+      ],
+      "id": "5d2b28f7-6eee-4527-bb60-9f0f29dae30c",
+      "name": "Mettre à jour le document Grist",
+      "executeOnce": true,
+      "credentials": {
+        "gristApi": {
+          "id": "RTRMy2a1FzBZa3n4",
+          "name": "Votre compte Grist (à remplacer)"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Edit Fields1": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "Remplissage de l'email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook 1 - Nouvelle demande envoyée": {
+      "main": [
+        [
+          {
+            "node": "Vérifier que l'email existe",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook 2 - Demande existante modifiée": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Remplissage de l'email": {
+      "main": [
+        [
+          {
+            "node": "Envoyer un email au membre",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Mettre à jour le document Grist",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Vérifier que l'email existe": {
+      "main": [
+        [
+          {
+            "node": "Envoyer un email au référent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false
+  },
+  "versionId": "dc4a15f0-c182-4237-92bb-b82b98f01b21",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "751c49997d5720a9991bdffc4e0dae12fc71d1bfca96d323b2662258e9ac72a2"
+  },
+  "id": "_2evCZlvR77syX5LSCyEM",
+  "tags": []
+}
