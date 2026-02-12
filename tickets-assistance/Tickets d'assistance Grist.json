@@ -126,7 +126,7 @@
     {
       "parameters": {
         "httpMethod": "POST",
-        "path": "coller-l-id-du-doc-ici",
+        "path": "nouvelle-demande-envoyée",
         "options": {}
       },
       "type": "n8n-nodes-base.webhook",
@@ -142,7 +142,7 @@
     {
       "parameters": {
         "httpMethod": "POST",
-        "path": "coller-l-id-du-doc-ici",
+        "path": "demande-existante-modifiée",
         "options": {}
       },
       "type": "n8n-nodes-base.webhook",
@@ -344,7 +344,7 @@
     "executionOrder": "v1",
     "availableInMCP": false
   },
-  "versionId": "dc4a15f0-c182-4237-92bb-b82b98f01b21",
+  "versionId": "d4490bab-be81-4584-946c-4b98c0cfdda5",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "751c49997d5720a9991bdffc4e0dae12fc71d1bfca96d323b2662258e9ac72a2"
