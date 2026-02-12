@@ -103,7 +103,7 @@
       "typeVersion": 3.4,
       "position": [
         624,
-        352
+        256
       ],
       "id": "1691f417-17e9-413f-b357-32cd2ecf46bd",
       "name": "Edit Fields1"
@@ -118,7 +118,7 @@
       "typeVersion": 1,
       "position": [
         848,
-        352
+        256
       ],
       "id": "12d9a359-6bba-412a-a91b-a2cca91c553a",
       "name": "Split Out"
@@ -149,7 +149,7 @@
       "typeVersion": 2.1,
       "position": [
         400,
-        352
+        256
       ],
       "id": "10d9adb3-2b6e-4df2-a1af-aec64de855d9",
       "name": "Webhook 2 - Demande existante modifiée",
@@ -166,7 +166,7 @@
       "type": "n8n-nodes-base.mailjet",
       "typeVersion": 1,
       "position": [
-        848,
+        1296,
         32
       ],
       "id": "6060933f-2c78-4a97-98ca-30f5506c2666",
@@ -187,7 +187,7 @@
       "typeVersion": 2,
       "position": [
         1072,
-        352
+        256
       ],
       "id": "8a8121a7-076f-4e76-a14f-a33df38962ba",
       "name": "Remplissage de l'email"
@@ -218,7 +218,7 @@
       "typeVersion": 1,
       "position": [
         1296,
-        448
+        256
       ],
       "id": "8cd70bbd-a038-43c7-a25a-481f313300c1",
       "name": "Envoyer un email au membre",
@@ -251,7 +251,7 @@
       "type": "n8n-nodes-base.grist",
       "typeVersion": 1,
       "position": [
-        1296,
+        1520,
         256
       ],
       "id": "5d2b28f7-6eee-4527-bb60-9f0f29dae30c",
@@ -318,11 +318,6 @@
             "node": "Envoyer un email au membre",
             "type": "main",
             "index": 0
-          },
-          {
-            "node": "Mettre à jour le document Grist",
-            "type": "main",
-            "index": 0
           }
         ]
       ]
@@ -337,6 +332,17 @@
           }
         ]
       ]
+    },
+    "Envoyer un email au membre": {
+      "main": [
+        [
+          {
+            "node": "Mettre à jour le document Grist",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "active": false,
@@ -344,7 +350,7 @@
     "executionOrder": "v1",
     "availableInMCP": false
   },
-  "versionId": "d4490bab-be81-4584-946c-4b98c0cfdda5",
+  "versionId": "36c1964d-3423-43aa-9e47-086eabf6f71a",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "751c49997d5720a9991bdffc4e0dae12fc71d1bfca96d323b2662258e9ac72a2"
